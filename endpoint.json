@@ -1,0 +1,100 @@
+{
+  "label": "SQL",
+  "name": "sql",
+  "internal": false,
+  "configurationType": "GLOBAL",
+  "deployment": {
+    "profiles": [
+      {
+        "name": "default",
+        "label": "Default",
+        "memory": 256,
+        "description": "Default configuration"
+      }
+    ],
+    "allowMultipleInstances": true
+  },
+  "icon48": "https://storage.googleapis.com/static.slingrs.io/platform/endpoints/sql.png",
+  "configurationHelpUrl": "/endpoints_sql.html#configuration",
+  "status": "ACTIVE",
+  "stores": [],
+  "events": [],
+  "functions": [
+    {
+      "label": "Query",
+      "name": "query",
+      "description": "Run the specified query on the SQL database"
+    }
+  ],
+  "scripts": [],
+  "configuration": [
+    {
+      "name": "dbType",
+      "label": "Database type",
+      "type": "buttonsGroup",
+      "required": true,
+      "defaultValue": "mysql",
+      "typeOptions": {
+        "allowCustom": false,
+        "possibleValues": [
+          {
+            "label": "MySQL",
+            "name": "mysql"
+          },
+          {
+            "label": "MariaDB",
+            "name": "mariadb"
+          },
+          {
+            "label": "PostgreSQL",
+            "name": "postgresql"
+          },
+          {
+            "label": "SQL server",
+            "name": "sqlserver"
+          },
+          {
+            "label": "Sqlite",
+            "name": "sqlite"
+          },
+          {
+            "label": "Oracle",
+            "name": "oracle"
+          }
+        ]
+      }
+    },
+    {
+      "name": "dbUser",
+      "label": "DB User",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "dbPassword",
+      "label": "DB Password",
+      "type": "password",
+      "required": true
+    },
+    {
+      "name": "connectionString",
+      "label": "DB Connection String",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "maximumPoolSize",
+      "label": "Maximum Pool Size",
+      "type": "text",
+      "required": true,
+      "defaultValue": "10",
+      "description": "Allows to set the maximum of connections to the database",
+      "typeOptions": {
+        "validation": {
+          "function": "!config.maximumPoolSize || utils.isPlaceholder(config.maximumPoolSize) || (utils.getInteger(config.maximumPoolSize) >= 1 && utils.getInteger(config.maximumPoolSize) <= 100)",
+          "message": "Maximum Pool Size should be between 1 and 100. "
+        }
+      }
+    }
+  ]
+}
